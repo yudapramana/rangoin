@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('type', ['kabupaten', 'kota']);       // tipe administratif
             $table->unsignedInteger('display_order')->default(0);
             $table->boolean('is_active')->default(true);
+            $table->string('filter');
 
             // Multi-bahasa
             $table->string('name_id');                         // Indonesia

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\DestinationController;
+use App\Http\Controllers\Landing\DestinationController as LandingDestinationController;
 use App\Http\Controllers\HomeController;
 use App\Models\Attraction;
 use Illuminate\Support\Facades\App;
@@ -21,6 +22,15 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+// routes/web.php
+
+Route::get('/destinations', [LandingDestinationController::class, 'index'])->name('landing.destinations.index');
+// (opsional) detail halaman destinasi per slug
+Route::get('/destinations/{slug}', [LandingDestinationController::class, 'show'])->name('landing.destinations.show');
+
 
 Route::get('/ads.txt', function () {
     return view('ads');

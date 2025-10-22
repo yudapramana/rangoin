@@ -17,4 +17,12 @@ class Destination extends Model
         'lat' => 'decimal:7',
         'lng' => 'decimal:7',
     ];
+
+    public function attractions()
+    {
+        return $this->hasMany(Attraction::class)
+            ->where('is_active', true)
+            ->orderBy('display_order')
+            ->orderBy('name_id');
+    }
 }

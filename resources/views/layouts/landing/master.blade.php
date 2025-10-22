@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ __('landing.html_lang') }}">
 
 <head>
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{{ __('landing.meta.title') }}</title>
+    <meta name="description" content="{{ __('landing.meta.description') }}">
+    <meta name="keywords" content="{{ __('landing.meta.keywords') }}">
 
-    <title>@yield('title')</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ __('landing.og.title') }}">
+    <meta property="og:description" content="{{ __('landing.og.description') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('images/og/ranahgo.jpg') }}">
+    <meta name="theme-color" content="#0ea5e9">
+
+    <!-- Favicons -->
+    <link href="{{ asset('tour/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('tour/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
 
     <!-- ======= Styles ======= -->
     @include('layouts.landing.styles')
 
     @yield('_styles')
+
+
 
 </head>
 
@@ -29,7 +44,9 @@
     <!-- ======= Footer ======= -->
     @include('layouts.landing.footer')
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
 
     <!-- ======= Scripts ======= -->
     @include('layouts.landing.scripts')
