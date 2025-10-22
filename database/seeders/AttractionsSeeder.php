@@ -38,6 +38,7 @@ class AttractionsSeeder extends Seeder
             $nameCell    = (string)($row[1] ?? '');
             $descCell    = (string)($row[2] ?? '');
             $cultureCell = (string)($row[3] ?? '');
+            $imageMainCell = (string)($row[4] ?? '');
 
             if ($this->filled($cityCell)) {
                 $currentCity = $this->parseTriLang($cityCell);
@@ -94,6 +95,7 @@ class AttractionsSeeder extends Seeder
                     'starting_price' => null,
                     'currency_code'  => 'IDR',
                     'is_active'      => true,
+                    'image_main'     => $imageMainCell,
                 ]
             );
         }
