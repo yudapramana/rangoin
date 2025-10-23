@@ -167,7 +167,7 @@ return [
     'details_subtitle' => 'Here is the Tour Details',
     'nights' => 'Nights',
     'from' => 'From',
-    'check_availabiity' => 'Check Availability',
+    'check_availability' => 'Check Availability',
     'overview' => 'Tour Overview',
     'highlights' => 'Tour highlights',
     'themes' => 'Tour themes',
