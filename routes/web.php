@@ -13,6 +13,8 @@ use App\Models\Destination;
 use Illuminate\Support\Str;
 use App\Models\Tour;
 use App\Http\Controllers\Site\TourBrowseController;
+use App\Http\Controllers\Landing\AttractionController;
+
 
 
 
@@ -28,6 +30,9 @@ use App\Http\Controllers\Site\TourBrowseController;
 */
 
 
+
+Route::get('/attractions', [AttractionController::class, 'index'])->name('attractions.index');
+Route::get('/attractions/{slug}', [AttractionController::class, 'show'])->name('attractions.show');
 
 
 // Halaman daftar tur publik

@@ -224,7 +224,7 @@
             </div> --}}
 
             {{-- ATTRACTIONS SECTION (match template structure) --}}
-            <div class="attractions-section" data-aos="fade-up" data-aos-delay="300">
+            {{-- <div class="attractions-section" data-aos="fade-up" data-aos-delay="300">
                 <div class="section-header">
                     <h2>Must-Visit Attractions in {{ $title }}</h2>
                     <p>Experience the best of what {{ $title }} has to offer</p>
@@ -235,9 +235,7 @@
                         @php
                             $aName = $a->{$nameKey} ?: $a->name_id;
                             $thumb = $a->image_main ?: $a->image_thumb ?: asset('tour/img/travel/destination-3.webp');
-                            // AOS delay pattern: 100, 200, 300, 100, ...
                             $delay = 100 + ($loop->index % 3) * 100;
-                            // Deskripsi singkat: pakai subtitle dulu, fallback ke deskripsi ringkas
                             $short = $a->subtitle_id ?: Str::limit(strip_tags($a->description_id), 160);
                         @endphp
 
@@ -260,7 +258,55 @@
                         </div>
                     @endforelse
                 </div>
+            </div> --}}
+
+            {{-- ATTRACTIONS SECTION (match template structure) --}}
+            <div class="attractions-section" data-aos="fade-up" data-aos-delay="300">
+                <div class="section-header">
+                    <h2>Must-Visit Attractions in {{ $title }}</h2>
+                    <p>Experience the best of what {{ $title }} has to offer</p>
+                </div>
+
+                <div class="row gy-4">
+                    @forelse ($d->attractions as $a)
+                        @php
+                            $aName = $a->{$nameKey} ?: $a->name_id;
+                            $thumb = $a->image_main ?: $a->image_thumb ?: asset('tour/img/travel/destination-3.webp');
+                            $delay = 100 + ($loop->index % 3) * 100;
+                            $short = $a->subtitle_id ?: \Illuminate\Support\Str::limit(strip_tags($a->description_id), 160);
+                            // URL detail (pakai named route yg kita buat sebelumnya)
+                            $detailUrl = route('attractions.show', $a->slug);
+                            // Jika Anda ingin pakai singular path: $detailUrl = url('/attraction/'.$a->slug);
+                        @endphp
+
+                        <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $delay }}">
+                            <div class="attraction-item position-relative">
+                                <div class="attraction-image">
+                                    <a href="{{ $detailUrl }}">
+                                        <img src="{{ $thumb }}" alt="{{ $aName }}" class="img-fluid" loading="lazy">
+                                    </a>
+                                </div>
+                                <div class="attraction-content">
+                                    <h4 class="mb-1">
+                                        <a href="{{ $detailUrl }}" class="text-decoration-none">{{ $aName }}</a>
+                                    </h4>
+                                    @if ($short)
+                                        <p class="mb-0">{{ $short }}</p>
+                                    @endif
+                                </div>
+
+                                {{-- Membuat seluruh card bisa diklik --}}
+                                <a class="stretched-link" href="{{ $detailUrl }}" aria-label="View {{ $aName }}"></a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="alert alert-light border text-center">Belum ada attraction aktif untuk destinasi ini.</div>
+                        </div>
+                    @endforelse
+                </div>
             </div>
+
 
 
             {{-- MAP --}}
