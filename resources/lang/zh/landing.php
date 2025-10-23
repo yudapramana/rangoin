@@ -116,6 +116,8 @@ return [
   'badges' => [
     'best_value' => '高性价比',
     'limited' => '名额有限',
+    'top_rated' => '评价最高',
+    'newly_added' => '新添加的'
   ],
 
   'featured_tours' => [
@@ -136,5 +138,24 @@ return [
     'from_price' => '起价 :p',
     'view_details' => '查看详情',
     'view_all_tours' => '查看全部行程',
+    'book_now' => '立即预订',
+  ],
+
+  'tours' => [
+    'all' => 'All',
+    'apply' =>'Apply',
+    'max' => '最大限度',
+    'find_title' => 'Cari Tur Terbaikmu',
+    'find_desc' => 'Discover unforgettable travel experiences with our curated collection of tours. Explore by destination, travel style, or date to find the adventure that is perfect for you.',
+    'search_placeholder' => 'Select Destination',
+    'duration' => 'Duration',
+    'price_range' => 'Price Range',
+    'days' => 'Days',
+    'view_details' => 'View Tour',
+    'view_tour' => 'View Tour',
+    'cta_title' => 'Not Sure What to Choose?',
+    'cta_desc' => 'Our travel experts are here to help you find the perfect tour based on your preferences and budget.',
+    'contact_experts' => 'Contact Our Experts',
+    'take_quiz' => 'Take Our Travel Quiz',
   ],
 ];

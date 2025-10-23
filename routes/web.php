@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use App\Models\Destination;
 use Illuminate\Support\Str;
+use App\Models\Tour;
+use App\Http\Controllers\Site\TourBrowseController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,15 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
+// Halaman daftar tur publik
+Route::get('/tours', [TourBrowseController::class, 'index'])->name('tours.index');
+
+// (opsional) detail bila belum ada
+Route::get('/tours/{slug}', [TourBrowseController::class, 'show'])->name('tours.show');
 
 
 
@@ -68,65 +81,196 @@ Route::get('/xup', function () {
 
 Route::get('/', function () {
     $locale = request('lang', session('app_locale', config('app.locale')));
+
+    // app Anda pakai 'cn' di URL, model kita pakai kolom *_zh
     if (! in_array($locale, ['id', 'en', 'cn'])) {
-    $locale = config('app.locale');
+        $locale = config('app.locale');
     }
     session(['app_locale' => $locale]);
-    App::setLocale($locale);
+    App::setLocale($locale === 'cn' ? 'zh' : $locale);
 
+    /* ===================== FEATURED DESTINATIONS (existing) ===================== */
     $featured = Attraction::pickFeaturedFour();
 
-        // helper format harga “IDR 2.950K” (sederhana)
-        $fmt = function (?int $minor, string $ccy = 'IDR') {
-            if (!$minor) return null;
-            // asumsikan minor = 1 rupiah; jadikan ribuan “K”
-            $k = $minor / 1000;
-            // 1.750K, 6.900K dst.
-            return sprintf('%s %sK', $ccy, number_format($k, 0, ',', '.'));
+    // helper format harga “IDR 2.950K”
+    $fmtK = function (?int $minor, string $ccy = 'IDR') {
+        if (!$minor) return null;
+        $k = $minor / 1000;
+        return sprintf('%s %sK', $ccy, number_format($k, 0, ',', '.'));
+    };
+
+    $featuredDestinations = collect($featured)->map(function ($d) use ($fmtK) {
+        $count = $d->tours_count ?: ($d->packages_count ?: $d->expeditions_count);
+        $countType = $d->tours_count ? __('landing.common.tours')
+                    : ($d->packages_count ? __('landing.common.packages')
+                    : ($d->expeditions_count ? __('landing.common.expeditions') : ''));
+
+        return [
+            'id'        => $d->id,
+            'name'      => $d->t('name') ?? $d->slug,
+            'subtitle'  => $d->t('subtitle'),
+            'city'      => $d->t('location_label') ?: $d->t('city'),
+            'desc'      => $d->t('description'),
+            'badge'     => [
+                'popular' => $d->is_popular_choice,
+                'best'    => $d->is_best_value,
+                'limited' => $d->is_limited_spots,
+                'label'   => $d->is_best_value
+                                ? __('landing.badges.best_value')
+                                : ($d->is_limited_spots
+                                    ? __('landing.badges.limited')
+                                    : ($d->is_popular_choice ? __('landing.destinations.popular') : null)),
+            ],
+            'rating'    => $d->rating,
+            'rating_count' => $d->rating_count,
+            'count'     => $count,
+            'count_type'=> $countType,
+            'price'     => $fmtK($d->starting_price, $d->currency_code ?? 'IDR'),
+            'image'     => $d->image_main,
+            'slug'      => $d->slug,
+            'city_click'      => $d->city_id,
+        ];
+    });
+
+    /* ===================== FEATURED TOURS (new) ===================== */
+    // ambil tour publish terbaik; sesuaikan limit bila perlu
+    $tours = Tour::published()
+        ->with(['highlights' => fn($q) => $q->orderBy('sort')])
+        ->orderByDesc('rating_avg')
+        ->orderBy('duration_days')
+        ->limit(6)
+        ->get();
+
+    // formatter harga: jika IDR pakai “K”, selain itu tampilkan apa adanya
+    $fmtTourPrice = function (?int $amount, string $ccy) use ($fmtK) {
+        if (!$amount) return null;
+        if (strtoupper($ccy) === 'IDR') {
+            return $fmtK($amount, 'IDR');
+        }
+        // simple: “USD 540” (silakan ganti ke intl NumberFormatter kalau perlu)
+        return sprintf('%s %s', strtoupper($ccy), number_format($amount, 0, ',', '.'));
+    };
+
+    $featuredTours = $tours->map(function (Tour $t) use ($fmtTourPrice) {
+        // badge text & class
+        [$badgeText, $badgeClass] = match ($t->badge_type) {
+            'top_rated'   => [__('landing.badges.top_rated'), 'top-rated'],
+            'newly_added' => [__('landing.badges.newly_added'), 'newly-added'],
+            'limited'     => [
+                $t->badge_label_id || $t->badge_label_en || $t->badge_label_zh
+                    ? ($t->trans('badge_label') ?? __('landing.badges.limited'))
+                    : __('landing.badges.limited'),
+                'limited'
+            ],
+            default       => [null, null],
         };
 
-        // siapkan struktur presentasi agar Blade rapi
-        $presented = collect($featured)->map(function ($d) use ($fmt) {
-            // pilih mana yang dihitung “count label”
-            $count = $d->tours_count ?: ($d->packages_count ?: $d->expeditions_count);
-            $countType = $d->tours_count ? __('landing.common.tours')
-                        : ($d->packages_count ? __('landing.common.packages')
-                        : ($d->expeditions_count ? __('landing.common.expeditions') : ''));
+        // ambil 3 highlight teratas sesuai locale
+        $highlights = $t->highlights->take(3)->map(fn($h) => $h->item())->values()->all();
 
-            return [
-                'id'        => $d->id,
-                'name'      => $d->t('name') ?? $d->slug,
-                'subtitle'  => $d->t('subtitle'),
-                'city'      => $d->t('location_label') ?: $d->t('city'),
-                'desc'      => $d->t('description'),
-                'badge'     => [
-                    'popular' => $d->is_popular_choice,
-                    'best'    => $d->is_best_value,
-                    'limited' => $d->is_limited_spots,
-                    'label'   => $d->is_best_value
-                                    ? __('landing.badges.best_value')
-                                    : ($d->is_limited_spots
-                                        ? __('landing.badges.limited')
-                                        : ($d->is_popular_choice ? __('landing.destinations.popular') : null)),
-                ],
-                'rating'    => $d->rating,
-                'rating_count' => $d->rating_count,
-                'count'     => $count,
-                'count_type'=> $countType,
-                'price'     => $fmt($d->starting_price, $d->currency_code ?? 'IDR'),
-                'image'     => $d->image_main,
-                'slug'      => $d->slug,
-            ];
-        });
-
+        return [
+            'id'            => $t->id,
+            'slug'          => $t->slug,
+            'title'         => $t->title,
+            'duration'      => "{$t->duration_days}D{$t->duration_nights}N",
+            'group_max'     => $t->group_max,
+            'price'         => $fmtTourPrice($t->sale_price ?: $t->price, $t->currency ?? 'IDR'),
+            'badge_text'    => $badgeText,
+            'badge_class'   => $badgeClass,
+            'rating'        => $t->rating_avg ? number_format($t->rating_avg, 1) : null,
+            'rating_count'  => $t->rating_count,
+            'summary'       => $t->short_desc ?? $t->short_desc_en ?? null,
+            'highlights'    => $highlights,
+            'image'         => $t->hero_image_url ?: asset('tour/img/travel/placeholder-tour.webp'),
+        ];
+    });
 
     return view('landing', [
-    'locale' => $locale,
-    'wa_number' => '6281234567890',
-    'email' => 'hello@ranahgo.id',
-    'featuredDestinations' => $presented,
+        'locale' => $locale,
+        'wa_number' => '6281234567890',
+        'email' => 'hello@ranahgo.id',
+        'featuredDestinations' => $featuredDestinations,
+        'featuredTours' => $featuredTours,
     ]);
 })->name('landing');
+
+
+// Route::get('/tours', function () {
+//     $tours = Tour::published()->orderBy('title_en')->paginate(12);
+//     return view('tours.index', compact('tours'));
+// })->name('tours.index');
+
+// Route::get('/tours/{slug}', function ($slug) {
+//     $tour = Tour::published()
+//         ->with(['highlights','itineraryDays','topics'])
+//         ->where('slug', $slug)
+//         ->firstOrFail();
+
+//     return view('tours.show', compact('tour'));
+// })->name('tours.show');
+
+
+// Route::get('/', function () {
+//     $locale = request('lang', session('app_locale', config('app.locale')));
+//     if (! in_array($locale, ['id', 'en', 'cn'])) {
+//     $locale = config('app.locale');
+//     }
+//     session(['app_locale' => $locale]);
+//     App::setLocale($locale);
+
+//     $featured = Attraction::pickFeaturedFour();
+
+//         // helper format harga “IDR 2.950K” (sederhana)
+//         $fmt = function (?int $minor, string $ccy = 'IDR') {
+//             if (!$minor) return null;
+//             // asumsikan minor = 1 rupiah; jadikan ribuan “K”
+//             $k = $minor / 1000;
+//             // 1.750K, 6.900K dst.
+//             return sprintf('%s %sK', $ccy, number_format($k, 0, ',', '.'));
+//         };
+
+//         // siapkan struktur presentasi agar Blade rapi
+//         $presented = collect($featured)->map(function ($d) use ($fmt) {
+//             // pilih mana yang dihitung “count label”
+//             $count = $d->tours_count ?: ($d->packages_count ?: $d->expeditions_count);
+//             $countType = $d->tours_count ? __('landing.common.tours')
+//                         : ($d->packages_count ? __('landing.common.packages')
+//                         : ($d->expeditions_count ? __('landing.common.expeditions') : ''));
+
+//             return [
+//                 'id'        => $d->id,
+//                 'name'      => $d->t('name') ?? $d->slug,
+//                 'subtitle'  => $d->t('subtitle'),
+//                 'city'      => $d->t('location_label') ?: $d->t('city'),
+//                 'desc'      => $d->t('description'),
+//                 'badge'     => [
+//                     'popular' => $d->is_popular_choice,
+//                     'best'    => $d->is_best_value,
+//                     'limited' => $d->is_limited_spots,
+//                     'label'   => $d->is_best_value
+//                                     ? __('landing.badges.best_value')
+//                                     : ($d->is_limited_spots
+//                                         ? __('landing.badges.limited')
+//                                         : ($d->is_popular_choice ? __('landing.destinations.popular') : null)),
+//                 ],
+//                 'rating'    => $d->rating,
+//                 'rating_count' => $d->rating_count,
+//                 'count'     => $count,
+//                 'count_type'=> $countType,
+//                 'price'     => $fmt($d->starting_price, $d->currency_code ?? 'IDR'),
+//                 'image'     => $d->image_main,
+//                 'slug'      => $d->slug,
+//             ];
+//         });
+
+
+//     return view('landing', [
+//     'locale' => $locale,
+//     'wa_number' => '6281234567890',
+//     'email' => 'hello@ranahgo.id',
+//     'featuredDestinations' => $presented,
+//     ]);
+// })->name('landing');
 
 // routes/web.php
 Route::get('/set-locale/{locale}', function ($locale) {

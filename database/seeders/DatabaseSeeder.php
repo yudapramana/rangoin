@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
             AttractionsSeeder::class,         // import dari Excel
             DestinationsTableSeeder::class,   // sudah Anda buat
             BackfillAttractionDestinationSeeder::class,
+            ToursDemoSeeder::class,
+
         ]);
     }
 }

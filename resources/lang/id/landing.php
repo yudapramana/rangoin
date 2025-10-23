@@ -116,6 +116,8 @@ return [
   'badges' => [
     'best_value' => 'Paling Worth It',
     'limited' => 'Kuota Terbatas',
+    'top_rated' => 'Top Rating',
+    'newly_added' => 'Baru'
   ],
 
   'featured_tours' => [
@@ -136,5 +138,24 @@ return [
     'from_price' => 'mulai :p',
     'view_details' => 'Lihat Detail',
     'view_all_tours' => 'Lihat Semua Paket',
+    'book_now' => 'Pesan Sekarang',
+  ],
+
+  'tours' => [
+    'all' => 'All',
+    'apply' =>'Apply',
+    'max' => 'Maks',
+    'find_title' => 'Cari Tur Terbaikmu',
+    'find_desc' => 'Discover unforgettable travel experiences with our curated collection of tours. Explore by destination, travel style, or date to find the adventure that is perfect for you.',
+    'search_placeholder' => 'Select Destination',
+    'duration' => 'Duration',
+    'price_range' => 'Price Range',
+    'days' => 'Days',
+    'view_details' => 'View Tour',
+    'view_tour' => 'View Tour',
+    'cta_title' => 'Not Sure What to Choose?',
+    'cta_desc' => 'Our travel experts are here to help you find the perfect tour based on your preferences and budget.',
+    'contact_experts' => 'Contact Our Experts',
+    'take_quiz' => 'Take Our Travel Quiz',
   ],
 ];

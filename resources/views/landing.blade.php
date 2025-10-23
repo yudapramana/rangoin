@@ -198,7 +198,7 @@
                                                 <span class="amount">{{ $big['price'] }}</span>
                                             </div>
                                         @endif
-                                        <a href="{{ route('landing.destinations.show', $big['city']) }}" class="explore-btn">
+                                        <a href="{{ route('landing.destinations.show', $big['city_click']) }}" class="explore-btn">
                                             <span>{{ __('landing.destinations.explore_now') }}</span>
                                             <i class="bi bi-arrow-right"></i>
                                         </a>
@@ -242,7 +242,7 @@
                                                     <span class="price">{{ __('landing.common.from_price', ['p' => $d['price']]) }}</span>
                                                 @endif
                                             </div>
-                                            <a href="{{ route('landing.destinations.show', $d['city']) }}" class="quick-link">
+                                            <a href="{{ route('landing.destinations.show', $d['city_click']) }}" class="quick-link">
                                                 {{ __('landing.common.view_details') }} <i class="bi bi-chevron-right"></i>
                                             </a>
                                         </div>
@@ -257,107 +257,81 @@
         </section>
 
 
-        <!-- FEATURED TOURS (static sample) -->
+
+
+        <!-- FEATURED TOURS (dynamic) -->
         <section id="featured-tours" class="featured-tours section">
             <div class="container section-title" data-aos="fade-up">
                 <h2>{{ __('landing.featured_tours.title') }}</h2>
-                <div><span>{{ __('landing.featured_tours.lead_1') }}</span> <span class="description-title">{{ __('landing.featured_tours.lead_2') }}</span></div>
+                <div>
+                    <span>{{ __('landing.featured_tours.lead_1') }}</span>
+                    <span class="description-title">{{ __('landing.featured_tours.lead_2') }}</span>
+                </div>
             </div>
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row gy-4">
-                    <!-- Card 1 -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="tour-card">
-                            <div class="tour-image">
-                                <img src="{{ asset('tour/img/travel/tour-1.webp') }}" alt="Beach Retreat" class="img-fluid" loading="lazy">
-                                <div class="tour-badge">Top Rated</div>
-                                <div class="tour-price">IDR 2.150K</div>
-                            </div>
-                            <div class="tour-content">
-                                <h4>Coast & Island Escape</h4>
-                                <div class="tour-meta">
-                                    <span class="duration"><i class="bi bi-clock"></i> 3D2N</span>
-                                    <span class="group-size"><i class="bi bi-people"></i> Max 8</span>
+                    @foreach ($featuredTours as $i => $t)
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 200 + ($i % 3) * 100 }}">
+                            <div class="tour-card">
+                                <div class="tour-image">
+                                    <img src="{{ $t['image'] }}" alt="{{ $t['title'] }}" class="img-fluid" loading="lazy">
+                                    @if ($t['badge_text'])
+                                        <div class="tour-badge {{ $t['badge_class'] }}">{{ $t['badge_text'] }}</div>
+                                    @endif
+                                    {{-- @if ($t['price'])
+                                        <div class="tour-price">{{ $t['price'] }}</div>
+                                    @endif --}}
                                 </div>
-                                <p>Perpaduan pantai Padang—Pulau Pasumpahan—Sunset Pantai Air Manis.</p>
-                                <div class="tour-highlights">
-                                    <span>Padang</span><span>Pasumpahan</span><span>Air Manis</span>
-                                </div>
-                                <div class="tour-action">
-                                    <a href="#booking" class="btn-book">Book Now</a>
-                                    <div class="tour-rating">
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-                                        <span>4.8 (95)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="tour-card">
-                            <div class="tour-image">
-                                <img src="{{ asset('tour/img/travel/tour-6.webp') }}" alt="Rainforest Trek" class="img-fluid" loading="lazy">
-                                <div class="tour-badge cultural">Eco-Friendly</div>
-                                <div class="tour-price">IDR 2.650K</div>
-                            </div>
-                            <div class="tour-content">
-                                <h4>Harau Valley Adventure</h4>
-                                <div class="tour-meta">
-                                    <span class="duration"><i class="bi bi-clock"></i> 3D2N</span>
-                                    <span class="group-size"><i class="bi bi-people"></i> Max 12</span>
-                                </div>
-                                <p>Tebing granit, air terjun Sarasah, dan aktivitas canyoning ringan.</p>
-                                <div class="tour-highlights">
-                                    <span>Harau</span><span>Payakumbuh</span><span>Lima Puluh Kota</span>
-                                </div>
-                                <div class="tour-action">
-                                    <a href="#booking" class="btn-book">Book Now</a>
-                                    <div class="tour-rating">
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
-                                        <span>4.6 (70)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="tour-card">
-                            <div class="tour-image">
-                                <img src="{{ asset('tour/img/travel/tour-8.webp') }}" alt="Highlands" class="img-fluid" loading="lazy">
-                                <div class="tour-badge adventure">Cultural</div>
-                                <div class="tour-price">IDR 1.950K</div>
-                            </div>
-                            <div class="tour-content">
-                                <h4>Bukittinggi Heritage</h4>
-                                <div class="tour-meta">
-                                    <span class="duration"><i class="bi bi-clock"></i> 2D1N</span>
-                                    <span class="group-size"><i class="bi bi-people"></i> Max 15</span>
-                                </div>
-                                <p>City tour Jam Gadang—Ngarai Sianok—Lobang Jepang—kuliner Minang.</p>
-                                <div class="tour-highlights">
-                                    <span>Bukittinggi</span><span>Agam</span><span>Kuliner</span>
-                                </div>
-                                <div class="tour-action">
-                                    <a href="#booking" class="btn-book">Book Now</a>
-                                    <div class="tour-rating">
-                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                        <span>4.9 (120)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
+                                <div class="tour-content">
+                                    <h4>{{ $t['title'] }}</h4>
+
+                                    <div class="tour-meta">
+                                        <span class="duration"><i class="bi bi-clock"></i> {{ $t['duration'] }}</span>
+                                        @if ($t['group_max'])
+                                            <span class="group-size"><i class="bi bi-people"></i> {{ __('landing.tours.max') }} {{ $t['group_max'] }}</span>
+                                        @endif
+                                    </div>
+
+                                    @if ($t['summary'])
+                                        <p>{{ $t['summary'] }}</p>
+                                    @endif
+
+                                    @if (!empty($t['highlights']))
+                                        <div class="tour-highlights">
+                                            @foreach ($t['highlights'] as $h)
+                                                <span>{{ $h }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <div class="tour-action">
+                                        <a href="{{ route('tours.show', $t['slug']) }}" class="btn-book">{{ __('landing.common.book_now') }}</a>
+                                        @if ($t['rating'])
+                                            <div class="tour-rating">
+                                                {{-- tampilkan 4.5/5 secara sederhana --}}
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi {{ $t['rating'] >= 4.8 ? 'bi-star-fill' : ($t['rating'] >= 4.3 ? 'bi-star-half' : 'bi-star') }}"></i>
+                                                <span>{{ $t['rating'] }} ({{ $t['rating_count'] }})</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="500">
-                    <a href="#featured-tours" class="btn-view-all">{{ __('landing.common.view_all_tours') }}</a>
+                    <a href="{{ route('tours.index') }}" class="btn-view-all">{{ __('landing.common.view_all_tours') }}</a>
                 </div>
             </div>
         </section>
+
 
         <!-- TESTIMONIALS -->
         <section id="testimonials" class="testimonials-home section">

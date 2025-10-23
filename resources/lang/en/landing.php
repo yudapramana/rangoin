@@ -116,6 +116,8 @@ return [
   'badges' => [
     'best_value' => 'Best Value',
     'limited' => 'Limited Spots',
+    'top_rated' => 'Top Rated',
+    'newly_added' => 'Newly Added'
   ],
 
   'featured_tours' => [
@@ -136,5 +138,23 @@ return [
     'from_price' => 'from :p',
     'view_details' => 'View Details',
     'view_all_tours' => 'View All Tours',
+    'book_now' => 'Book Now',
+  ],
+  'tours' => [
+    'all' => 'All',
+    'apply' =>'Apply',
+    'max' => 'Maks',
+    'find_title' => 'Cari Tur Terbaikmu',
+    'find_desc' => 'Discover unforgettable travel experiences with our curated collection of tours. Explore by destination, travel style, or date to find the adventure that is perfect for you.',
+    'search_placeholder' => 'Select Destination',
+    'duration' => 'Duration',
+    'price_range' => 'Price Range',
+    'days' => 'Days',
+    'view_details' => 'View Tour',
+    'view_tour' => 'View Tour',
+    'cta_title' => 'Not Sure What to Choose?',
+    'cta_desc' => 'Our travel experts are here to help you find the perfect tour based on your preferences and budget.',
+    'contact_experts' => 'Contact Our Experts',
+    'take_quiz' => 'Take Our Travel Quiz',
   ],
 ];

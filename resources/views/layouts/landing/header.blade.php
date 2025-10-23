@@ -12,7 +12,8 @@
                 <li><a href="/" class="active">{{ __('landing.nav.home') }}</a></li>
                 <li><a href="#about">{{ __('landing.nav.about') }}</a></li>
                 <li><a href="/destinations">{{ __('landing.nav.destinations') }}</a></li>
-                <li><a href="#featured-tours">{{ __('landing.nav.tours') }}</a></li>
+                <li><a href="/tours">{{ __('landing.nav.tours') }}</a></li>
+                {{-- <li><a href="#featured-tours">{{ __('landing.nav.tours') }}</a></li> --}}
                 <li><a href="#gallery">{{ __('landing.nav.gallery') }}</a></li>
                 <li><a href="#blog">{{ __('landing.nav.blog') }}</a></li>
 
