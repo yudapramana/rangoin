@@ -303,6 +303,109 @@ class ToursDemoSeeder extends Seeder
 
             $attachTopics($tour3, ['culture','nature','waterfall','valley','lake','beach','heritage']);
 
+            /* ========= TOUR 4: 6D5N Mentawai Inland & Island ========= */
+            $tour4 = Tour::updateOrCreate(
+                ['code' => 'MTW-6D5N', 'slug' => 'mentawai-inland-island-6d5n'],
+                [
+                    'title_id' => '6H5M — Pedalaman & Pulau Mentawai',
+                    'title_en' => '6D5N — Mentawai Inland & Island',
+                    'title_zh' => '6天5晚 — 明打威内陆与海岛',
+                    'tagline_id' => 'Meeting Point Dermaga Maileppet • Uma • Sipora • Island Hopping',
+                    'tagline_en' => 'Meeting Point Maileppet Dock • Uma • Sipora • Island Hopping',
+                    'tagline_zh' => '集合点Maileppet码头 • 乌玛屋 • 西波拉岛 • 跳岛',
+                    'short_desc_id' => 'Eksplor budaya Uma, aktivitas tradisional, hopping pulau & air terjun.',
+                    'short_desc_en' => 'Explore Uma culture, traditional activities, island hopping & waterfall.',
+                    'short_desc_zh' => '体验乌玛文化与传统活动，跳岛与瀑布之旅。',
+                    'overview_id' => 'Paket 6H5M dimulai dari Dermaga Maileppet: kunjungan Uma (cawat, racun panah), berburu, ulat sagu, kerajinan tangan; lanjut ke Pulau Sipora, hopping pulau (snorkeling & santai), tracking air terjun; kembali ke Padang.',
+                    'overview_en' => '6D5N starting at Maileppet Dock: Uma visit (loincloth, arrow poison), hunting, sago worms, handicrafts; continue to Sipora Island, island hopping (snorkeling & chill), waterfall trek; return to Padang.',
+                    'overview_zh' => '6天5晚从Maileppet码头出发：走访乌玛屋（缠腰布、箭毒），狩猎、硕莪虫、手工艺；前往西波拉岛，跳岛（浮潜与海滩放松），瀑布徒步；返回巴东。',
+                    'duration_days' => 6,
+                    'duration_nights' => 5,
+                    'group_min' => 2,
+                    'group_max' => 12,
+                    'countries' => ['Indonesia','West Sumatra','Mentawai','Maileppet','Sipora','Tuapejat','Siberut','Padang'],
+                    'currency' => 'IDR',
+                    'price' => 6100000, // IDR 6.100.000 / pax
+                    'badge_type' => 'newly_added',
+                    'badge_limited_spots' => null,
+                    'rating_avg' => 4.7,
+                    'rating_count' => 36,
+                    'hero_image_url' => 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Mentawai_Uma.jpg',
+                    'status' => 'published',
+                    'published_at' => now(),
+                ]
+            );
+
+            $this->addHighlights($tour4, [
+                ['sort'=>1, 'id'=>'Meeting Point Dermaga Maileppet','en'=>'Meeting Point Maileppet Dock','zh'=>'集合点Maileppet码头'],
+                ['sort'=>2, 'id'=>'Kunjungan UMA (rumah adat)','en'=>'UMA visit (communal house)','zh'=>'参观乌玛屋（传统公共屋）'],
+                ['sort'=>3, 'id'=>'Proses cawat & racun panah','en'=>'Loincloth & arrow poison making','zh'=>'缠腰布与箭毒制作'],
+                ['sort'=>4, 'id'=>'Berburu & ulat sagu','en'=>'Hunting & sago worms','zh'=>'狩猎与硕莪虫'],
+                ['sort'=>5, 'id'=>'Kerajinan tangan Mentawai','en'=>'Mentawai handicrafts','zh'=>'明打威手工艺'],
+                ['sort'=>6, 'id'=>'Pulau Sipora & island hopping','en'=>'Sipora Island & island hopping','zh'=>'西波拉岛与跳岛'],
+                ['sort'=>7, 'id'=>'Snorkeling & chill di pantai','en'=>'Snorkeling & beach chill','zh'=>'浮潜与海滩休闲'],
+                ['sort'=>8, 'id'=>'Tracking air terjun','en'=>'Waterfall trekking','zh'=>'瀑布徒步'],
+            ]);
+
+            $this->addItinerary($tour4, [
+                [1,
+                    ['id'=>'Menuju Uma & eksplor budaya','en'=>'To Uma & cultural immersion','zh'=>'前往乌玛屋与文化体验'],
+                    ['id'=>'Tiba di Dermaga Maileppet; menuju Uma. Lihat proses pembuatan cawat & racun panah; tur UMA; aktivitas berburu (intro).',
+                    'en'=>'Arrive at Maileppet Dock; head to Uma. See loincloth & arrow poison making; UMA tour; intro to hunting.',
+                    'zh'=>'抵达Maileppet码头；前往乌玛屋。观摩缠腰布与箭毒制作；乌玛屋参观；狩猎体验介绍。'],
+                    ['id'=>'Maileppet • Uma','en'=>'Maileppet • Uma','zh'=>'Maileppet • 乌玛屋'],
+                    true, false, false,
+                    ['id'=>'Homestay lokal (Uma)','en'=>'Local homestay (Uma)','zh'=>'当地民宿（乌玛屋）'],
+                ],
+                [2,
+                    ['id'=>'Berburu ulat sagu & kerajinan','en'=>'Sago worms & handicrafts','zh'=>'硕莪虫与手工艺'],
+                    ['id'=>'Aktivitas berburu ulat sagu; lihat pembuatan jerat babi hutan; proses kerajinan tangan; aktivitas di Uma.',
+                    'en'=>'Hunt for sago worms; see wild boar trap making; handicraft process; activities at Uma.',
+                    'zh'=>'捕猎硕莪虫；观摩野猪陷阱制作；手工艺流程；乌玛屋活动。'],
+                    ['id'=>'Pedalaman Mentawai','en'=>'Mentawai inland','zh'=>'明打威内陆'],
+                    true, false, false,
+                    ['id'=>'Homestay lokal (Uma)','en'=>'Local homestay (Uma)','zh'=>'当地民宿（乌玛屋）'],
+                ],
+                [3,
+                    ['id'=>'Menuju Pulau Sipora','en'=>'Transfer to Sipora Island','zh'=>'前往西波拉岛'],
+                    ['id'=>'Perjalanan menuju Pulau Sipora / Tuapejat; check-in akomodasi pesisir; waktu bebas.',
+                    'en'=>'Travel to Sipora / Tuapejat; check into seaside stay; free time.',
+                    'zh'=>'前往西波拉/杜瓦佩贾；入住海边住宿；自由活动。'],
+                    ['id'=>'Sipora / Tuapejat','en'=>'Sipora / Tuapejat','zh'=>'西波拉 / 杜瓦佩贾'],
+                    true, false, false,
+                    ['id'=>'Penginapan di Tuapejat','en'=>'Accommodation in Tuapejat','zh'=>'杜瓦佩贾住宿'],
+                ],
+                [4,
+                    ['id'=>'Island hopping & snorkeling','en'=>'Island hopping & snorkeling','zh'=>'跳岛与浮潜'],
+                    ['id'=>'Keliling pulau, snorkeling, dan bersantai di pantai; makan siang grill saat trip pulau.',
+                    'en'=>'Tour the islands, snorkeling, and relax on the beach; grilled lunch during island trip.',
+                    'zh'=>'环岛、浮潜与海滩放松；跳岛行程享用烧烤午餐。'],
+                    ['id'=>'Kepulauan Mentawai','en'=>'Mentawai islands','zh'=>'明打威群岛'],
+                    true, false, false,
+                    ['id'=>'Penginapan di Tuapejat','en'=>'Accommodation in Tuapejat','zh'=>'杜瓦佩贾住宿'],
+                ],
+                [5,
+                    ['id'=>'Tracking air terjun','en'=>'Waterfall trekking','zh'=>'瀑布徒步'],
+                    ['id'=>'Jelajah/trek ke air terjun setempat; sore kembali & istirahat.',
+                    'en'=>'Trek to a local waterfall; return in the afternoon and rest.',
+                    'zh'=>'前往当地瀑布徒步；下午返回休息。'],
+                    ['id'=>'Sipora / Tuapejat','en'=>'Sipora / Tuapejat','zh'=>'西波拉 / 杜瓦佩贾'],
+                    true, false, false,
+                    ['id'=>'Penginapan di Tuapejat','en'=>'Accommodation in Tuapejat','zh'=>'杜瓦佩贾住宿'],
+                ],
+                [6,
+                    ['id'=>'Kembali ke Padang','en'=>'Return to Padang','zh'=>'返回巴东'],
+                    ['id'=>'Check-out; perjalanan via Mentawai Fast sesuai jadwal; tiba di Padang.',
+                    'en'=>'Check out; transfer via Mentawai Fast as scheduled; arrive in Padang.',
+                    'zh'=>'退房；按航班/船期乘明打威快船返程；抵达巴东。'],
+                    ['id'=>'Padang','en'=>'Padang','zh'=>'巴东'],
+                    true, false, false,
+                    ['id'=>'—','en'=>'—','zh'=>'—'],
+                ],
+            ]);
+
+            $attachTopics($tour4, ['culture','nature','islands','waterfall','heritage']);
+
         });
     }
 

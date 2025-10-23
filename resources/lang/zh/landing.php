@@ -142,6 +142,9 @@ return [
   ],
 
   'tours' => [
+    'featured' => 'Featured Tours',
+    'title' => 'Tours',
+    'subtitle' => 'Find your tours',
     'all' => 'All',
     'apply' =>'Apply',
     'max' => '最大限度',

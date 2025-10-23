@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 class TourItineraryDay extends Model
 {
@@ -32,23 +34,87 @@ class TourItineraryDay extends Model
     }
 
     /* I18N helpers */
-    public function title(?string $locale = null): string
+    // public function title(?string $locale = null): string
+    // {
+    //     $locale = $locale ?? app()->getLocale();
+    //     return $this->{"title_{$locale}"} ?? $this->title_en;
+    // }
+
+    protected function title(): Attribute
     {
-        $locale = $locale ?? app()->getLocale();
-        return $this->{"title_{$locale}"} ?? $this->title_en;
+        return Attribute::get(function () {
+            $loc = app()->getLocale();
+            $map = [
+                'id' => 'title_id',
+                'en' => 'title_en',
+                'zh' => 'title_zh',
+            ];
+            $col = $map[$loc] ?? 'title_en';
+
+            return $this->getAttribute($col)
+                ?? $this->getAttribute('title_en');
+        });
     }
 
-    public function description(?string $locale = null): ?string
+    protected function description(): Attribute
     {
-        $locale = $locale ?? app()->getLocale();
-        return $this->{"description_{$locale}"} ?? $this->description_en;
+        return Attribute::get(function () {
+            $loc = app()->getLocale();
+            $map = [
+                'id' => 'description_id',
+                'en' => 'description_en',
+                'zh' => 'description_zh',
+            ];
+            $col = $map[$loc] ?? 'description_en';
+
+            return $this->getAttribute($col)
+                ?? $this->getAttribute('description_en');
+        });
     }
 
-    public function accommodation(?string $locale = null): ?string
+    protected function location(): Attribute
     {
-        $locale = $locale ?? app()->getLocale();
-        return $this->{"accommodation_{$locale}"} ?? $this->accommodation_en;
+        return Attribute::get(function () {
+            $loc = app()->getLocale();
+            $map = [
+                'id' => 'location_id',
+                'en' => 'location_en',
+                'zh' => 'location_zh',
+            ];
+            $col = $map[$loc] ?? 'location_en';
+
+            return $this->getAttribute($col)
+                ?? $this->getAttribute('location_en');
+        });
     }
+
+    protected function accommodation(): Attribute
+    {
+        return Attribute::get(function () {
+            $loc = app()->getLocale();
+            $map = [
+                'id' => 'accommodation_id',
+                'en' => 'accommodation_en',
+                'zh' => 'accommodation_zh',
+            ];
+            $col = $map[$loc] ?? 'accommodation_en';
+
+            return $this->getAttribute($col)
+                ?? $this->getAttribute('accommodation_en');
+        });
+    }
+
+    // public function description(?string $locale = null): ?string
+    // {
+    //     $locale = $locale ?? app()->getLocale();
+    //     return $this->{"description_{$locale}"} ?? $this->description_en;
+    // }
+
+    // public function accommodation(?string $locale = null): ?string
+    // {
+    //     $locale = $locale ?? app()->getLocale();
+    //     return $this->{"accommodation_{$locale}"} ?? $this->accommodation_en;
+    // }
 
     public function locationName(?string $locale = null): ?string
     {

@@ -142,8 +142,12 @@ return [
   ],
 
   'tours' => [
+    'featured' => 'Featured Tours',
+    'title' => 'Tours',
+    'subtitle' => 'Find your tours',
     'all' => 'All',
     'apply' =>'Apply',
+    'min' => 'Min',
     'max' => 'Maks',
     'find_title' => 'Cari Tur Terbaikmu',
     'find_desc' => 'Discover unforgettable travel experiences with our curated collection of tours. Explore by destination, travel style, or date to find the adventure that is perfect for you.',
@@ -157,5 +161,21 @@ return [
     'cta_desc' => 'Our travel experts are here to help you find the perfect tour based on your preferences and budget.',
     'contact_experts' => 'Contact Our Experts',
     'take_quiz' => 'Take Our Travel Quiz',
+
+
+    'details_title' => 'Tour Details',
+    'details_subtitle' => 'Here is the Tour Details',
+    'nights' => 'Nights',
+    'from' => 'From',
+    'check_availabiity' => 'Check Availability',
+    'overview' => 'Tour Overview',
+    'highlights' => 'Tour highlights',
+    'themes' => 'Tour themes',
+    'day' => 'Day',
+    'itinerary' => 'Day-by-Day Itinerary',
+    'book_this' => 'Send Booking Request',
+    'starting_from' => 'Starting From',
+    'chat_whatsapp' => 'Chat Whatsapp',
+
   ],
 ];

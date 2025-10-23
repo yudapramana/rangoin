@@ -149,13 +149,29 @@ class TourBrowseController extends Controller
         ]);
     }
 
+    // public function show(string $slug)
+    // {
+    //     $tour = Tour::published()
+    //         ->with(['highlights','itineraryDays','topics'])
+    //         ->where('slug',$slug)
+    //         ->firstOrFail();
+
+    //     return view('landing.tours.show', compact('tour')); // siapkan view ini sesuai kebutuhan Anda
+    // }
+
+
     public function show(string $slug)
     {
         $tour = Tour::published()
-            ->with(['highlights','itineraryDays','topics'])
-            ->where('slug',$slug)
+            ->with([
+                'highlights' => fn($q) => $q->orderBy('sort'),
+                'itineraryDays' => fn($q) => $q->orderBy('day_number'),
+                'topics'
+            ])
+            ->where('slug', $slug)
             ->firstOrFail();
 
-        return view('tours.show', compact('tour')); // siapkan view ini sesuai kebutuhan Anda
+        return view('landing.tours.show', compact('tour'));
     }
+
 }

@@ -3,7 +3,7 @@
 
 @section('_styles')
     {{-- Styling ringan agar kartu mirip template Anda --}}
-    <style>
+    {{-- <style>
         .featured-tour-card,
         .tour-card {
             border: 1px solid #e5e7eb;
@@ -61,7 +61,7 @@
             color: #6b7280;
             font-size: 14px;
         }
-    </style>
+    </style> --}}
 @endsection
 
 @section('content')
@@ -92,7 +92,7 @@
             </div>
 
             {{-- Filters (GET) --}}
-            <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
+            {{-- <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-12">
                     <form class="tour-filters" method="GET" action="{{ route('tours.index') }}">
                         <div class="row g-2">
@@ -123,7 +123,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Featured Tours Slider --}}
             @if ($featured->count())
@@ -159,9 +159,9 @@
                                                 @endif
                                                 <div class="tour-meta">
                                                     <span class="duration"><i class="bi bi-clock"></i> {{ $f['duration'] }}</span>
-                                                    @if ($f['price'])
+                                                    {{-- @if ($f['price'])
                                                         <span class="price">{{ $f['price'] }}</span>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
                                                 <a href="{{ $f['url'] }}" class="btn btn-primary">{{ __('landing.tours.view_details') ?? 'View Details' }}</a>
                                             </div>
@@ -185,9 +185,9 @@
                                 <div class="tour-card h-100 d-flex flex-column">
                                     <div class="tour-image">
                                         <img src="{{ $t['image'] }}" alt="{{ $t['title'] }}" class="img-fluid">
-                                        @if ($t['price'])
+                                        {{-- @if ($t['price'])
                                             <div class="tour-price">{{ $t['price'] }}</div>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                     <div class="tour-content">
                                         <h4>{{ $t['title'] }}</h4>

@@ -141,6 +141,9 @@ return [
     'book_now' => 'Book Now',
   ],
   'tours' => [
+    'featured' => 'Featured Tours',
+    'title' => 'Tours',
+    'subtitle' => 'Find your tours',
     'all' => 'All',
     'apply' =>'Apply',
     'max' => 'Maks',
