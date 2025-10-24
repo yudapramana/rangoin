@@ -11,19 +11,19 @@
     <style>
         /* Page Title */
         /* .page-title.dark-background {
-                            background-position: center;
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            position: relative;
-                            padding: 80px 0;
-                        }
+                                                                                        background-position: center;
+                                                                                        background-size: cover;
+                                                                                        background-repeat: no-repeat;
+                                                                                        position: relative;
+                                                                                        padding: 80px 0;
+                                                                                    }
 
-                        .page-title.dark-background::before {
-                            content: "";
-                            position: absolute;
-                            inset: 0;
-                            background: linear-gradient(180deg, rgba(0, 0, 0, .25), rgba(0, 0, 0, .65));
-                        } */
+                                                                                    .page-title.dark-background::before {
+                                                                                        content: "";
+                                                                                        position: absolute;
+                                                                                        inset: 0;
+                                                                                        background: linear-gradient(180deg, rgba(0, 0, 0, .25), rgba(0, 0, 0, .65));
+                                                                                    } */
 
         .page-title .container {
             position: relative;
@@ -420,7 +420,7 @@
             </div>
 
             {{-- Gallery --}}
-            @if (count($gallery))
+            {{-- @if (count($gallery))
                 <div class="tour-gallery mt-5" data-aos="fade-up" data-aos-delay="360">
                     <h2>Photo Gallery</h2>
                     <div class="gallery-grid">
@@ -433,7 +433,69 @@
                         @endforeach
                     </div>
                 </div>
+            @endif --}}
+
+            {{-- ============== GALLERY (Slider + Masonry, mengikuti halaman Gallery) ============== --}}
+            @if (count($gallery))
+                {{-- Gallery Slider Section --}}
+                <section id="gallery-slider" class="gallery-slider section mt-0 pt-0" data-aos="fade-up" data-aos-delay="320">
+                    <div class="container">
+                        <div class="tour-gallery m-0 p-0" data-aos="fade-up" data-aos-delay="360">
+                            <h2 class="p-0 m-0">Photo Gallery</h2>
+                        </div>
+
+
+                        <div class="gallery-container">
+                            <div class="swiper init-swiper">
+                                {{-- Swiper config persis seperti template --}}
+                                <script type="application/json" class="swiper-config">
+                    {
+                        "loop": true,
+                        "speed": 800,
+                        "autoplay": { "delay": 4000 },
+                        "effect": "coverflow",
+                        "grabCursor": true,
+                        "centeredSlides": true,
+                        "slidesPerView": "auto",
+                        "coverflowEffect": { "rotate": 50, "stretch": 0, "depth": 100, "modifier": 1, "slideShadows": true },
+                        "pagination": { "el": ".swiper-pagination", "type": "bullets", "clickable": true },
+                        "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" },
+                        "breakpoints": {
+                            "320": { "slidesPerView": 1, "spaceBetween": 10 },
+                            "768": { "slidesPerView": 2, "spaceBetween": 20 },
+                            "1024": { "slidesPerView": 3, "spaceBetween": 30 }
+                        }
+                    }
+                    </script>
+
+                                <div class="swiper-wrapper">
+                                    @foreach ($gallery as $idx => $img)
+                                        <div class="swiper-slide">
+                                            <div class="gallery-item">
+                                                <div class="gallery-img">
+                                                    <a class="glightbox" data-gallery="images-gallery-{{ $attraction->slug }}" href="{{ $img }}">
+                                                        <img src="{{ $img }}" class="img-fluid" alt="{{ $titleTxt }} - {{ $idx + 1 }}" loading="lazy">
+                                                        <div class="gallery-overlay">
+                                                            <i class="bi bi-plus-circle"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                {{-- /Gallery Slider Section --}}
             @endif
+
 
             {{-- Final CTA --}}
             <div class="final-cta mt-5" data-aos="fade-up" data-aos-delay="420">

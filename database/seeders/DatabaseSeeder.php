@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             DestinationsTableSeeder::class,   // sudah Anda buat
             BackfillAttractionDestinationSeeder::class,
             ToursDemoSeeder::class,
+            AttractionGallerySeeder::class,
 
         ]);
     }
