@@ -14,10 +14,10 @@
                 <li><a href="/destinations">{{ __('landing.nav.destinations') }}</a></li>
                 <li><a href="/tours">{{ __('landing.nav.tours') }}</a></li>
                 {{-- <li><a href="#featured-tours">{{ __('landing.nav.tours') }}</a></li> --}}
-                <li><a href="#gallery">{{ __('landing.nav.gallery') }}</a></li>
-                <li><a href="#blog">{{ __('landing.nav.blog') }}</a></li>
+                {{-- <li><a href="#gallery">{{ __('landing.nav.gallery') }}</a></li> --}}
+                {{-- <li><a href="/blog">{{ __('landing.nav.blog') }}</a></li> --}}
 
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a href="#"><span>{{ __('landing.nav.more_pages') }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="#destination-details">{{ __('landing.nav.destination_details') }}</a></li>
@@ -30,7 +30,7 @@
                         <li><a href="#privacy">{{ __('landing.nav.privacy') }}</a></li>
                         <li><a href="#404">404</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <!-- Language Switcher (placeholder—sesuaikan dengan mekanisme locale-mu) -->
                 <li class="dropdown">
