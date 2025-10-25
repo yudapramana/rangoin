@@ -46,7 +46,7 @@ class DestinationController extends Controller
             ";
 
             $image = $r->image_url
-                ? "<img src='{$r->image_url}' alt='cover' style='width:90px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #eee;'/>"
+                ? "<img src='/{$r->image_url}' alt='cover' style='width:90px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #eee;'/>"
                 : "<span class='text-muted'>—</span>";
 
             $statusOrder = "

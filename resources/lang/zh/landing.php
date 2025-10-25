@@ -31,6 +31,7 @@ return [
     'terms' => '条款',
     'privacy' => '隐私',
     'contact' => '联系我们',
+    'attractions' => '景点',
   ],
 
   'cta' => [

@@ -31,6 +31,7 @@ return [
     'terms' => 'Terms',
     'privacy' => 'Privacy',
     'contact' => 'Contact',
+    'attractions' => 'Attractions',
   ],
 
   'cta' => [

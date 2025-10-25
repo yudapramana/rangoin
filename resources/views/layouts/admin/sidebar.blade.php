@@ -18,24 +18,27 @@
         @endcan --}}
         {{-- @endcan --}}
 
+        <li class="nav-heading">Kelola Web</li>
+
+
         <li class="nav-item">
             <a class="nav-link @if (request()->segment(1) == 'admin' && request()->segment(2) == 'destinations') @else collapsed @endif" href="/admin/destinations">
-                <i class="bi bi-geo-alt-fill"></i>
+                <i class="bi bi-signpost-2-fill"></i>
                 <span>Daftar Destinasi</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link @if (request()->segment(1) == 'admin' && request()->segment(2) == 'attractions') @else collapsed @endif" href="/admin/attractions">
-                <i class="bi bi-geo-alt-fill"></i>
+                <i class="bi bi-camera-fill"></i>
                 <span>Daftar Atraksi</span>
             </a>
         </li>
 
 
-        <li class="nav-heading">Kelola Web</li>
 
-        @can('menu-information')
+
+        {{-- @can('menu-information')
             <li class="nav-item">
                 <a class="nav-link @if (request()->segment(1) == 'information') @else collapsed @endif" data-bs-target="#information-nav" data-bs-toggle="collapse" href="#" aria-expanded="@if (request()->segment(1) == 'information') true @else false @endif">
                     <i class="bi bi-journal-text"></i><span>Informasi</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -135,7 +138,7 @@
                     @endcan
                 </ul>
             </li>
-        @endcan
+        @endcan --}}
 
 
 

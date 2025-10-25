@@ -31,6 +31,8 @@ return [
     'terms' => 'Syarat',
     'privacy' => 'Privasi',
     'contact' => 'Kontak',
+    'attractions' => 'Atraksi',
+
   ],
 
   'cta' => [
